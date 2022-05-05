@@ -13,6 +13,7 @@ function translateToCard(book, card) {
     info.readStatus = document.createElement('p')
     info.deleteBtn = document.createElement('button')
     info.deleteBtn.addEventListener('click', deleteEntry)
+    info.readStatus.addEventListener('click', setReadState)
 
     info.title.innerHTML = `${book.title}`
     info.author.innerHTML = `Author: ${book.author}`
@@ -65,6 +66,10 @@ function Book(title, author, pages) {
   Book.prototype.info = function () {
       return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read? 'read': 'not read yet'}`
     };
+
+  Book.prototype.toggleRead = function () {
+      this.read? this.read = false : this.read = true;
+  }
     
     const container = document.querySelector(".container")
     const form = document.querySelector(".formWrapper")
@@ -96,9 +101,19 @@ function Book(title, author, pages) {
 
     function deleteEntry(e) {
         parentVal = e.composedPath()[1]
-        console.log(parentVal)
+        currBook = myLibrary.findIndex(i => i.index === parentVal.classList[2]);
         container.removeChild(parentVal)
-        myLibrary.splice(myLibrary.findIndex(i => i.index === parentVal.classList[2]), 1);
+        myLibrary.splice(currBook, 1);
     }
     
-    
+    function setReadState(e) {
+        parentVal = e.composedPath()[1];
+        currBook = myLibrary[myLibrary.findIndex(i => i.index === parentVal.classList[2])];
+        currBook.toggleRead();
+        readStatusDiv = e.composedPath()[0];
+        //if is (not)read, remove not(read) 
+        readStatusDiv.classList.remove(book.read? 'notRead' : 'read')
+        //changes text and style based on current status
+        readStatusDiv.innerHTML = currBook.read? 'read' : 'not read';
+        readStatusDiv.classList.add(book.read? 'read' : 'notRead')
+    }
