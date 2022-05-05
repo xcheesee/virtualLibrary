@@ -101,8 +101,8 @@ function Book(title, author, pages) {
     }
     
     function setReadState(e) {
-        parentVal = e.composedPath()[1];
-        currBook = myLibrary[myLibrary.findIndex(i => i.index === parentVal.classList[2])];
+        directParentDiv = e.composedPath()[1];
+        currBook = myLibrary[myLibrary.findIndex(i => i.index === directParentDiv.classList[2])];
         currBook.toggleRead();
         readStatusDiv = e.composedPath()[0];
         //if is (not)read, remove not(read) 
