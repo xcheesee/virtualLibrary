@@ -1,0 +1,76 @@
+.mainTitle {
+    text-align: center;
+
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    gap: 20px;
+}
+
+.columnFlex {
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    border: 3px solid brown;
+    border-radius: 10px;
+    flex: 0 1 33%;
+}
+
+.card > p {
+    flex: 0 1 33%;
+}
+
+.formWrapper {
+    display:none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#bookForm {
+    position: fixed;
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-items: end;
+    column-gap: 1em;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+    padding: 1em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.formCenter {
+    text-align: center;
+    grid-column: 1 / -1;
+    justify-self: center;
+}
+
+#bookForm * {
+    margin-top: 1em;
+}
+
+.radio {
+    justify-self: end;
+}
+
+#addBook {
+    display: block;
+    margin: 10px auto;
+}
+
+.showEle {
+    display: block !important;
+}
