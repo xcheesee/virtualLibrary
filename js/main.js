@@ -85,12 +85,6 @@ function Book(title, author, pages) {
     
     addBookToLibrary(theHobbit)
     addBookToLibrary(nameOfWind)
-    addBookToLibrary(nameOfWind)
-    addBookToLibrary(nameOfWind)
-    addBookToLibrary(nameOfWind)
-    addBookToLibrary(nameOfWind)
-    addBookToLibrary(nameOfWind)
-    addBookToLibrary(nameOfWind)
     
     for(book of myLibrary) {
         addToHTML(book)
@@ -112,8 +106,8 @@ function Book(title, author, pages) {
         currBook.toggleRead();
         readStatusDiv = e.composedPath()[0];
         //if is (not)read, remove not(read) 
-        readStatusDiv.classList.remove(book.read? 'notRead' : 'read')
+        readStatusDiv.classList.remove(currBook.read? 'notRead' : 'read')
         //changes text and style based on current status
         readStatusDiv.innerHTML = currBook.read? 'read' : 'not read';
-        readStatusDiv.classList.add(book.read? 'read' : 'notRead')
+        readStatusDiv.classList.add(currBook.read? 'read' : 'notRead')
     }

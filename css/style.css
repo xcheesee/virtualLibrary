@@ -93,6 +93,14 @@
 .readStatus {
     grid-column: 3;
     justify-self: end;
+    border: 1px solid black;
+    background-color: #eee;
+    width: 4em;
+    text-align: center;
+}
+
+.readStatus:hover {
+    cursor: pointer;
 }
 
 .read {
