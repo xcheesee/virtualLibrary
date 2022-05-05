@@ -102,3 +102,7 @@
 .notRead {
     color: red;
 }
+
+.deleteBtn {
+    grid-column: 2;
+}
