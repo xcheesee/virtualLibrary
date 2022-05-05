@@ -10,8 +10,9 @@
 }
 
 .columnFlex {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 1em;
 }
 
 .card {
@@ -73,4 +74,31 @@
 
 .showEle {
     display: block !important;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.author, .title {
+    text-align: center;
+    grid-column: 1 / -1;
+}
+
+.author {
+    color: grey;
+}
+
+.readStatus {
+    grid-column: 3;
+    justify-self: end;
+}
+
+.read {
+    color: green;
+}
+
+.notRead {
+    color: red;
 }

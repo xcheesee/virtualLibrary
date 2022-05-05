@@ -11,7 +11,7 @@ function translateToCard(book, card) {
     info.pages = document.createElement('p')
     info.readStatus = document.createElement('p')
 
-    info.title.innerHTML = `Title: ${book.title}`
+    info.title.innerHTML = `${book.title}`
     info.author.innerHTML = `Author: ${book.author}`
     info.pages.innerHTML = `${book.pages} pages`
     info.readStatus.innerHTML = book.read? 'read' : 'not read'
@@ -22,14 +22,10 @@ function translateToCard(book, card) {
         card.appendChild(info[key])
     }
 
+    info.readStatus.classList.add(book.read? 'read' : 'notRead')
+
 }
 
-function addToHTML (book) {
-  let bookCard = document.createElement('div');
-  bookCard.classList.add("columnFlex", "card")
-  translateToCard(book, bookCard);
-  container.appendChild(bookCard)
-}
 
 function handleFormData(e) {
     e.preventDefault();
@@ -39,7 +35,16 @@ function handleFormData(e) {
     addedBook.read = formProps.status == 'read' ? true : false;
     addBookToLibrary(addedBook);
     addToHTML(addedBook)
-    form.classList.remove('showEle')
+    form.classList.remove('showEle');
+    //clear form data at submit
+    e.target.reset();
+}
+
+function addToHTML (book) {
+  let bookCard = document.createElement('div');
+  bookCard.classList.add("columnFlex", "card")
+  translateToCard(book, bookCard);
+  container.appendChild(bookCard)
 }
 
 function Book(title, author, pages) {
