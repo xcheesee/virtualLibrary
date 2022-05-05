@@ -1,5 +1,4 @@
 let myLibrary = [];
-let bookIndex = 0;
 
 function addBookToLibrary(book) {
   myLibrary.push(book)
@@ -46,7 +45,7 @@ function handleFormData(e) {
 
 function addToHTML (book) {
   let bookCard = document.createElement('div');
-  bookCard.classList.add("columnFlex", "card", `book${book.index}`)
+  bookCard.classList.add("columnFlex", "card")
   translateToCard(book, bookCard);
   container.appendChild(bookCard)
 }
@@ -57,8 +56,8 @@ function Book(title, author, pages) {
     this.pages = pages;
     this.read = false;
     //distinct book id
-    bookIndex += 1;
-    this.index = bookIndex;
+    // bookIndex += 1;
+    // this.index = bookIndex;
   }
 
 
