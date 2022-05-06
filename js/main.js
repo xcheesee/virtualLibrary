@@ -81,35 +81,35 @@ function Book(title, author, pages) {
     //distinct book id
     bookIndex += 1;
     this.index = `book${bookIndex}`;
-  }
+}
 
 
-  Book.prototype.info = function () {
-      return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read? 'read': 'not read yet'}`
-    };
+Book.prototype.info = function () {
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read? 'read': 'not read yet'}`
+};
 
-  Book.prototype.toggleRead = function () {
-      this.read? this.read = false : this.read = true;
-  }
+Book.prototype.toggleRead = function () {
+    this.read? this.read = false : this.read = true;
+}
     
-    const container = document.querySelector(".container")
-    const form = document.querySelector(".formWrapper")
-    const displayForm = document.getElementById("addBook")
-    let bookForm = document.getElementById('bookForm')
-    
-    const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295);
-    theHobbit.read = true;
-    
-    const nameOfWind = new Book('The Name of Wind', 'Patrick Rothfuss', 506)
-    nameOfWind.read = false
-    
-    
-    addBookToLibrary(theHobbit)
-    addBookToLibrary(nameOfWind)
-    
-    for(book of myLibrary) {
-        addToHTML(book)
-    }
-    
-    bookForm.addEventListener('submit', handleFormData)
-    displayForm.addEventListener('click', () => form.classList.add('showEle'))
+const container = document.querySelector(".container")
+const form = document.querySelector(".formWrapper")
+const displayForm = document.getElementById("addBook")
+let bookForm = document.getElementById('bookForm')
+
+const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295);
+theHobbit.read = true;
+
+const nameOfWind = new Book('The Name of Wind', 'Patrick Rothfuss', 506)
+nameOfWind.read = false
+
+
+addBookToLibrary(theHobbit)
+addBookToLibrary(nameOfWind)
+
+for(book of myLibrary) {
+    addToHTML(book)
+}
+
+bookForm.addEventListener('submit', handleFormData)
+displayForm.addEventListener('click', () => form.classList.add('showEle'))
