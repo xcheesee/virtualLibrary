@@ -2,7 +2,7 @@ let myLibrary = [];
 let bookIndex = 0;
 
 function addBookToLibrary(book) {
-  myLibrary.push(book)
+    myLibrary.push(book)
 }
 
 function handleFormData(e) {
@@ -19,7 +19,9 @@ function handleFormData(e) {
 }
 
 function translateToCard(book, card) {
+    //created object to go through later
     let info = {}
+
     info.title = document.createElement('p')
     info.author = document.createElement('p')
     info.pages = document.createElement('p')
@@ -48,10 +50,10 @@ function translateToCard(book, card) {
 
 
 function addToHTML (book) {
-  let bookCard = document.createElement('div');
-  bookCard.classList.add("columnFlex", "card", book.index)
-  translateToCard(book, bookCard);
-  container.appendChild(bookCard)
+    let bookCard = document.createElement('div');
+    bookCard.classList.add("columnFlex", "card", book.index)
+    translateToCard(book, bookCard);
+    container.appendChild(bookCard)
 }
 
 function deleteEntry(e) {
