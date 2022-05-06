@@ -5,6 +5,19 @@ function addBookToLibrary(book) {
   myLibrary.push(book)
 }
 
+function handleFormData(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const formProps = Object.fromEntries(formData);
+    let addedBook = new Book(formProps.title, formProps.author, formProps.pages);
+    addedBook.read = formProps.status == 'read' ? true : false;
+    addBookToLibrary(addedBook);
+    addToHTML(addedBook)
+    form.classList.remove('showEle');
+    //clear form data at submit
+    e.target.reset();
+}
+
 function translateToCard(book, card) {
     let info = {}
     info.title = document.createElement('p')
@@ -24,6 +37,7 @@ function translateToCard(book, card) {
     for(key in info) {
         //adds key name as class
         info[key].classList.add(key)
+        //adds all created elements to card
         card.appendChild(info[key])
     }
 
@@ -32,24 +46,31 @@ function translateToCard(book, card) {
 }
 
 
-function handleFormData(e) {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const formProps = Object.fromEntries(formData);
-    let addedBook = new Book(formProps.title, formProps.author, formProps.pages);
-    addedBook.read = formProps.status == 'read' ? true : false;
-    addBookToLibrary(addedBook);
-    addToHTML(addedBook)
-    form.classList.remove('showEle');
-    //clear form data at submit
-    e.target.reset();
-}
 
 function addToHTML (book) {
   let bookCard = document.createElement('div');
   bookCard.classList.add("columnFlex", "card", book.index)
   translateToCard(book, bookCard);
   container.appendChild(bookCard)
+}
+
+function deleteEntry(e) {
+    parentVal = e.composedPath()[1]
+    currBook = myLibrary.findIndex(i => i.index === parentVal.classList[2]);
+    container.removeChild(parentVal)
+    myLibrary.splice(currBook, 1);
+}
+
+function setReadState(e) {
+    directParentDiv = e.composedPath()[1];
+    currBook = myLibrary[myLibrary.findIndex(i => i.index === directParentDiv.classList[2])];
+    currBook.toggleRead();
+    readStatusDiv = e.composedPath()[0];
+    //if is (not)read, remove not(read) 
+    readStatusDiv.classList.remove(currBook.read? 'notRead' : 'read')
+    //changes text and style based on current status
+    readStatusDiv.innerHTML = currBook.read? 'read' : 'not read';
+    readStatusDiv.classList.add(currBook.read? 'read' : 'notRead')
 }
 
 function Book(title, author, pages) {
@@ -92,22 +113,3 @@ function Book(title, author, pages) {
     
     bookForm.addEventListener('submit', handleFormData)
     displayForm.addEventListener('click', () => form.classList.add('showEle'))
-
-    function deleteEntry(e) {
-        parentVal = e.composedPath()[1]
-        currBook = myLibrary.findIndex(i => i.index === parentVal.classList[2]);
-        container.removeChild(parentVal)
-        myLibrary.splice(currBook, 1);
-    }
-    
-    function setReadState(e) {
-        directParentDiv = e.composedPath()[1];
-        currBook = myLibrary[myLibrary.findIndex(i => i.index === directParentDiv.classList[2])];
-        currBook.toggleRead();
-        readStatusDiv = e.composedPath()[0];
-        //if is (not)read, remove not(read) 
-        readStatusDiv.classList.remove(currBook.read? 'notRead' : 'read')
-        //changes text and style based on current status
-        readStatusDiv.innerHTML = currBook.read? 'read' : 'not read';
-        readStatusDiv.classList.add(currBook.read? 'read' : 'notRead')
-    }
