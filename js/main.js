@@ -10,6 +10,12 @@ function handleFormData(e) {
     const formData = new FormData(e.target);
     const formProps = Object.fromEntries(formData);
     let addedBook = new Book(formProps.title, formProps.author, formProps.pages);
+    while(true) {
+        if(addedBook.title.length > 1) {
+            break;
+        }
+        return;
+    }
     addedBook.read = formProps.status == 'read' ? true : false;
     addBookToLibrary(addedBook);
     addToHTML(addedBook)
@@ -68,31 +74,52 @@ function setReadState(e) {
     currBook = myLibrary[myLibrary.findIndex(i => i.index === directParentDiv.classList[2])];
     currBook.toggleRead();
     readStatusDiv = e.composedPath()[0];
-    //if is (not)read, remove not(read) 
+    //if is (not)read, remove (read)not
     readStatusDiv.classList.remove(currBook.read? 'notRead' : 'read')
     //changes text and style based on current status
     readStatusDiv.innerHTML = currBook.read? 'read' : 'not read';
     readStatusDiv.classList.add(currBook.read? 'read' : 'notRead')
 }
 
-function Book(title, author, pages) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = false;
-    //distinct book id
-    bookIndex += 1;
-    this.index = `book${bookIndex}`;
+// class Book {
+//     constructor(title, author, pages) {
+//         this.title = title;
+//         this.author = author;
+//         this.pages = pages;
+//         this.read = false;
+//         //distinct book id
+//         bookIndex += 1;
+//         this.index = `book${bookIndex}`;
+//     }
+//     info() {
+//         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? 'read' : 'not read yet'}`;
+//     }
+//     toggleRead() {
+//         this.read ? this.read = false : this.read = true;
+//     }
+// }
+
+class Book {
+    constructor(title, author, pages) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = false;
+        bookIndex++
+        this.index = `book${bookIndex}`;
+    }
+
+    info () {
+        return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read? 'read': 'not read yet'}`
+    }
+
+    toggleRead() {
+        this.read? this.read = false : this.read = true;
+    }
 }
 
 
-Book.prototype.info = function () {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read? 'read': 'not read yet'}`
-};
 
-Book.prototype.toggleRead = function () {
-    this.read? this.read = false : this.read = true;
-}
     
 const container = document.querySelector(".container")
 const form = document.querySelector(".formWrapper")
